@@ -25,6 +25,7 @@ class UsersTableSeeder extends Seeder
             'apellido' => 'User',
             'email' => 'admin',
             'password' => $password,
+            'apiToken' => null,
         ]);
 
         // And now let's generate a few dozen users for our app:
@@ -34,6 +35,7 @@ class UsersTableSeeder extends Seeder
                 'apellido' => $faker->lastName,
                 'email' => $faker->email,
                 'password' => $password,
+                'apiToken' => null,
             ]);
         }
     }
