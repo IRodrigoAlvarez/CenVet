@@ -14,6 +14,7 @@ class Handler extends ExceptionHandler
      */
     protected $levels = [
         //
+
     ];
 
     /**
@@ -23,6 +24,7 @@ class Handler extends ExceptionHandler
      */
     protected $dontReport = [
         //
+
     ];
 
     /**
