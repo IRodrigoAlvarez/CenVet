@@ -37,9 +37,5 @@ class Controller extends BaseController
             }
         }
 
-        // $password = Hash::make('12345');
-        // return $email;
-
-
     }
 }
