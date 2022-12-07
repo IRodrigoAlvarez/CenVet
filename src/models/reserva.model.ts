@@ -15,6 +15,7 @@ export interface Reserva {
   rut: string;
   email: string;
   telefono: string;
+  responsable: string;
   agenda: Schema.Types.ObjectId | Agenda;
   cita: Schema.Types.ObjectId | Hora;
 }
@@ -32,6 +33,7 @@ const ReservaSchema = new Schema<Reserva>(
     rut: { type: String, required: true },
     email: { type: String, required: true },
     telefono: { type: String, required: true },
+    responsable: { type: String, required: false },
     agenda: {
       type: Schema.Types.ObjectId,
       required: true,

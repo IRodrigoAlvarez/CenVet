@@ -116,11 +116,14 @@ export class AgendaController {
         rut: req.body.rut,
         email: req.body.email,
         telefono: req.body.telefono,
+        responsable: req.body.responsable,
         agenda: agendaId,
         cita: horaId,
       };
 
-      const reserva: Reserva = await ReservaModel.create(data);
+      const reserva: Reserva = await (
+        await ReservaModel.create(data)
+      ).populate("agenda");
 
       await HoraModel.updateOne({ _id: horaId }, { disponible: false });
 
