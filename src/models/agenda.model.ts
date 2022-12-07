@@ -7,6 +7,7 @@ export interface Agenda {
   disponible: boolean;
   atiendeDomingo: boolean;
   atiendeSabado: boolean;
+  responsables: string[];
 }
 
 const AgendaSchema = new Schema<Agenda>(
@@ -16,6 +17,12 @@ const AgendaSchema = new Schema<Agenda>(
     disponible: { type: Boolean, required: true },
     atiendeDomingo: { type: Boolean, required: true },
     atiendeSabado: { type: Boolean, required: true },
+    responsables: [
+      {
+        type: String,
+        required: false,
+      },
+    ],
   },
   { timestamps: true }
 );
