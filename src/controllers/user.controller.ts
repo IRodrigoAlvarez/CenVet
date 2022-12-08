@@ -33,4 +33,18 @@ export class UserController {
       next(error);
     }
   }
+
+  public static async check(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const loggedInUserId = res.locals.loggedInUser._id;
+      const user: User = await UserModel.findById(loggedInUserId);
+      res.status(200).json({ status: "ok", data: user });
+    } catch (error: any) {
+      next(error);
+    }
+  }
 }
