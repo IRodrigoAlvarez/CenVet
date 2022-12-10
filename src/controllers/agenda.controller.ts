@@ -132,4 +132,49 @@ export class AgendaController {
       next(error);
     }
   }
+
+  public static async obtenerReservas(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const pagina: number = req.query.pagina
+        ? parseInt(req.query.pagina.toString())
+        : 1;
+      const limite: number = req.query.limite
+        ? parseInt(req.query.limite.toString())
+        : 10;
+      const offset: number = (pagina - 1) * limite;
+      const reservas: Reserva[] = await ReservaModel.find()
+        .populate("agenda")
+        .populate("cita")
+        .skip(offset)
+        .limit(limite)
+        .sort([
+          ["fecha", 1],
+          ["hora", 1],
+        ]);
+      const total: number = await ReservaModel.countDocuments();
+      res
+        .status(200)
+        .json({ status: "ok", data: { reservas, pagina, limite, total } });
+    } catch (error: any) {
+      next(error);
+    }
+  }
+
+  public static async eliminarReserva(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const reservaId: string = req.params.reservaId.toString();
+      await ReservaModel.findByIdAndDelete(reservaId);
+      res.status(200).json({ status: "ok" });
+    } catch (error: any) {
+      next(error);
+    }
+  }
 }
