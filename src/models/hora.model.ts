@@ -16,7 +16,12 @@ const HoraSchema = new Schema<Hora>(
     bloque: { type: Number, required: true },
     hora: { type: String, required: true },
     disponible: { type: Boolean, required: true, default: true },
-    agenda: { type: Schema.Types.ObjectId, required: true, unique: false },
+    agenda: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      unique: false,
+      ref: "Agenda",
+    },
   },
   { timestamps: true }
 );
