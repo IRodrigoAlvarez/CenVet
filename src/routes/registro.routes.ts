@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { MascotaController } from "../controllers/mascota.controller";
+import { RegistroController } from "../controllers/registro.controller";
 import { Auth } from "../middleware/auth.middleware";
 
 const router: Router = Router();
@@ -8,25 +8,25 @@ router.post(
   "/",
   Auth.accessControl,
   Auth.allowIfLoggedIn,
-  MascotaController.crear
+  RegistroController.crear
 );
 router.get(
-  "/:mascotaId",
+  "/mascota/:mascotaId",
   Auth.accessControl,
   Auth.allowIfLoggedIn,
-  MascotaController.obtener
-);
-router.get(
-  "/cliente/:clienteId",
-  Auth.accessControl,
-  Auth.allowIfLoggedIn,
-  MascotaController.obtenerPorCliente
+  RegistroController.obtenerPorMascota
 );
 router.put(
-  "/:mascotaId",
+  "/:registroId",
   Auth.accessControl,
   Auth.allowIfLoggedIn,
-  MascotaController.actualizar
+  RegistroController.actualizar
+);
+router.delete(
+  "/:registroId",
+  Auth.accessControl,
+  Auth.allowIfLoggedIn,
+  RegistroController.eliminar
 );
 
 export default router;

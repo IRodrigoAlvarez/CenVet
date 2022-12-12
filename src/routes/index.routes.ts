@@ -4,6 +4,7 @@ import UserRoutes from "./user.routes";
 import AgendaRoutes from "./agenda.routes";
 import ClienteRoutes from "./cliente.routes";
 import MascotaRoutes from "./mascota.routes";
+import RegistroRoutes from "./registro.routes";
 
 const router: Router = Router();
 
@@ -18,5 +19,6 @@ router.use("/agenda", AgendaRoutes);
 router.use("/users", UserRoutes);
 router.use("/clientes", ClienteRoutes);
 router.use("/mascotas", MascotaRoutes);
+router.use("/registros", RegistroRoutes);
 
 export default router;
