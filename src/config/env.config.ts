@@ -6,4 +6,6 @@ export const ENV = {
   port: process.env.PORT || "3001",
   mongoUrl: process.env.MONGODB_URL,
   jwtSecret: process.env.JWT_SECRET,
+  email: process.env.EMAIL,
+  password: process.env.PASSWORD,
 };

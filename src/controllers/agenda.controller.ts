@@ -4,6 +4,7 @@ import { Agenda, AgendaModel } from "../models/agenda.model";
 import CustomError from "../models/custom-error.model";
 import { Hora, HoraModel } from "../models/hora.model";
 import { Reserva, ReservaModel } from "../models/reserva.model";
+import CorreoUtils from "../utils/correo.utils";
 import MiscUtils from "../utils/misc.utils";
 
 export class AgendaController {
@@ -131,6 +132,8 @@ export class AgendaController {
 
       await HoraModel.updateOne({ _id: horaId }, { disponible: false });
 
+      CorreoUtils.enviarCorreo(reserva);
+
       res.status(200).json({ status: "ok", data: reserva });
     } catch (error: any) {
       next(error);
@@ -206,7 +209,6 @@ export class AgendaController {
     next: NextFunction
   ): Promise<void> {
     try {
-      console.log("try");
       const numeroReserva: string = req.params.numeroReserva.toString();
       await ReservaModel.findOneAndDelete({ numero: numeroReserva });
       res.status(200).json({ status: "ok" });
