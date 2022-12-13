@@ -21,5 +21,13 @@ router.delete(
   Auth.allowIfLoggedIn,
   AgendaController.eliminarReserva
 );
+router.get(
+  "/reservas/:numeroReserva",
+  AgendaController.obtenerReservaPorNumero
+);
+router.delete(
+  "/reservas/numero/:numeroReserva",
+  AgendaController.eliminarReservaPorNumero
+);
 
 export default router;

@@ -4,6 +4,7 @@ import { Hora } from "./hora.model";
 
 export interface Reserva {
   _id?: string;
+  numero: string;
   fecha: string;
   bloque: number;
   hora: string;
@@ -22,6 +23,7 @@ export interface Reserva {
 
 const ReservaSchema = new Schema<Reserva>(
   {
+    numero: { type: String, required: true },
     fecha: { type: String, required: true },
     bloque: { type: Number, required: true },
     hora: { type: String, required: true },

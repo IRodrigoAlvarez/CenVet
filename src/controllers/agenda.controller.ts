@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { customAlphabet } from "nanoid";
 import { Agenda, AgendaModel } from "../models/agenda.model";
 import CustomError from "../models/custom-error.model";
 import { Hora, HoraModel } from "../models/hora.model";
@@ -100,11 +101,14 @@ export class AgendaController {
     try {
       const horaId: string = req.params.horaId.toString();
       const hora: Hora = await HoraModel.findById(horaId);
+
       if (!hora) {
         throw CustomError.EXAMPLE_ERROR;
       }
       const agendaId: string = req.params.agendaId.toString();
+      const nanoid = customAlphabet("1234567890", 10);
       const data: any = {
+        numero: nanoid(),
         fecha: hora.fecha,
         bloque: hora.bloque,
         hora: hora.hora,
@@ -174,6 +178,40 @@ export class AgendaController {
       await ReservaModel.findByIdAndDelete(reservaId);
       res.status(200).json({ status: "ok" });
     } catch (error: any) {
+      next(error);
+    }
+  }
+
+  public static async obtenerReservaPorNumero(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const numeroReserva: string = req.params.numeroReserva.toString();
+      const reserva: Reserva = await ReservaModel.findOne({
+        numero: numeroReserva,
+      })
+        .populate("agenda")
+        .populate("cita");
+      res.status(200).json({ status: "ok", data: reserva });
+    } catch (error: any) {
+      next(error);
+    }
+  }
+
+  public static async eliminarReservaPorNumero(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      console.log("try");
+      const numeroReserva: string = req.params.numeroReserva.toString();
+      await ReservaModel.findOneAndDelete({ numero: numeroReserva });
+      res.status(200).json({ status: "ok" });
+    } catch (error: any) {
+      console.log("error", error);
       next(error);
     }
   }
